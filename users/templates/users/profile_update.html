@@ -1,25 +1,59 @@
 {% extends 'blog/base.html' %}
 {% load crispy_forms_tags %}
 {% block content %}
-    <div class="content-section">
-        <div class="media">
-            <img class="rounded-circle account-img" src="{{ user.profile.profile_img.url }}">
-            <div class="media-body">
-                <h3 class="card-body">{{ user.first_name }} {{ user.last_name }} </h3>
-                <p class="text-body">Username: {{ user.username }}</p>
-                <p class="text-secondary">Email Id: {{ user.email }}</p>
-                <p class="text-secondary">Age: {{ user.profile.age }} Gender: {{ user.profile.gender }}</p>
+<div class="content-section">
+    <div class="media">
+        <img class="rounded-circle account-img" src="{{ user.profile.profile_img.url }}">
+        <div class="media-body">
+            <h3 class="card-body">{{ user.first_name }} {{ user.last_name }} </h3>
+            <p class="text-body">Username: {{ user.username }}</p>
+            <p class="text-secondary">Email Id: {{ user.email }}</p>
+            <p class="text-secondary">Age: {{ user.profile.age }} Gender: {{ user.profile.gender }}</p>
 
-
-            </div>
 
         </div>
-        <!-- FORM HERE -->
-        <form method="post" enctype="multipart/form-data">
-            {% csrf_token %}
-            {{ u_form|crispy }}
-            {{ p_form|crispy }}
-            <button class="btn-outline-primary" type="submit">Update</button>
-        </form>
+
     </div>
+    <!-- FORM HERE -->
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        {{ u_form.username|as_crispy_field }}
+        <div class="form-row">
+            <div class="form-group col-md-6 mb-0">
+                {{ u_form.first_name|as_crispy_field }}
+            </div>
+            <div class="form-group col-md-6 mb-0">
+                {{ u_form.last_name|as_crispy_field }}
+            </div>
+        </div>
+        {{ u_form.email|as_crispy_field }}
+        {{ p_form.profile_img|as_crispy_field }}
+        <div class="form-row">
+            <div class="form-group col-md-6 mb-0">
+                {{ p_form.age|as_crispy_field }}
+            </div>
+            <div class="form-group col-md-6 mb-0">
+                {{ p_form.gender|as_crispy_field }}
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6 mb-0">
+                {{ p_form.facebook|as_crispy_field }}
+            </div>
+            <div class="form-group col-md-6 mb-0">
+                {{ p_form.insta|as_crispy_field }}
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6 mb-0">
+                {{ p_form.linkedin|as_crispy_field }}
+            </div>
+            <div class="form-group col-md-6 mb-0">
+                {{ p_form.twitter|as_crispy_field }}
+            </div>
+        </div>
+        <button class="btn-outline-primary" type="submit">Update</button>
+    </form>
+</div>
 {% endblock %}
