@@ -31,7 +31,11 @@ class ProfileUpdateForm(forms.ModelForm):
     )
     gender = forms.ChoiceField(choices=choices, required=False)
     age = forms.IntegerField(required=False)
+    facebook = forms.CharField(max_length=100, required=False)
+    insta = forms.CharField(max_length=100, required=False)
+    linkedin = forms.CharField(max_length=100, required=False)
+    twitter = forms.CharField(max_length=100, required=False)
 
     class Meta:
         model = Profile
-        fields = ['profile_img', 'age', 'gender']
+        fields = ['profile_img', 'age', 'gender', 'facebook', 'insta', 'linkedin', 'twitter']
