@@ -1,0 +1,29 @@
+{% extends 'blog/base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <div class="card mb-4">
+
+        <div class="card-header">
+            <h3 class="text-center"><img class="rounded-circle figure-img img-thumbnail" src="{{ prof.profile_img.url }}">
+
+                <span class="card-title text-capitalize  ml-2 mr-1">{{ prof.user.first_name }} {{ prof.user.last_name }}
+                </span>
+
+                {% if user == prof.user %}
+                    <a href="{% url 'profile-update' %}" class="btn btn-primary btn-sm mt-1 mb-1"> Update It </a>
+                {% endif %}
+            </h3>
+        </div>
+        <div class="card-body">
+            <h4 class="text-black-50">
+            <p class="card-title">Username : {{ prof.user.username }}</p>
+            <p class="card-text">Email Id : {{ prof.user.email }}</p>
+            <p class="card-text">Age : {{ prof.age }}</p>
+            <p class="card-text">Gender : {{ prof.gender }}</p>
+            </h4>
+        </div>
+        <div class="card-footer text-muted">
+
+        </div>
+    </div>
+{% endblock %}

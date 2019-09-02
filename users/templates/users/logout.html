@@ -1,0 +1,20 @@
+{% extends 'blog/base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <div class="content-section">
+        <form action="" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <legend class="border-bottom mb-4">Login Into</legend>
+            </div>
+            <div class="form-group">
+                You have been logged out successfully
+            </div>
+        </form>
+        <div class="border-top pt-3">
+            <small class="text-muted">
+                Want to login again!! <a class="ml-2" href="{% url 'login' %}">Login</a>
+            </small>
+        </div>
+    </div>
+{% endblock %}
