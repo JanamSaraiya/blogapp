@@ -10,8 +10,9 @@ def register(request):
         form = RegistrationForm(request.POST)
         if form.is_valid():
             username = form.cleaned_data.get('username')
-            form.save()
-            messages.success(request, f'Hey, {username}, your account has been created.')
+            form.save() # when you save this post_save signal invoke and create instance of profile model as well
+            messages.success(
+                request, f'Hey, {username}, your account has been created.')
             messages.info(request, f'Now you can login.')
             return redirect('login')
     else:
@@ -36,12 +37,14 @@ def profile_update(request):
     if request.method == 'POST':
 
         u_form = UserUpdateForm(request.POST, instance=request.user)
-        p_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile)
+        p_form = ProfileUpdateForm(
+            request.POST, request.FILES, instance=request.user.profile)
         if u_form.is_valid() and p_form.is_valid():
             username = u_form.cleaned_data.get('username')
             u_form.save()
             p_form.save()
-            messages.success(request, f'Hey, {username}, your information has been updated.')
+            messages.success(
+                request, f'Hey, {username}, your information has been updated.')
             return redirect('profile-update')
     else:
         u_form = UserUpdateForm(instance=request.user)
