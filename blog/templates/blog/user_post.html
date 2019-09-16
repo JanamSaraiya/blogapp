@@ -1,6 +1,6 @@
 {% extends 'blog/base.html' %}
 {% block content %}
-    <h2 class="mb-3 text-center"><i class="far fa-clipboard mr-1"></i>Posts by {{ view.kwargs.username }}| <small class="text-primary"> Total Posts:{{ page_obj.paginator.count }}</small></h2>
+    <h2 class="mb-3 text-center "><i class="far fa-clipboard mr-1"></i>Posts by {{ view.kwargs.username }} <small class="d-inline p-1 bg-primary  text-white"> Total Posts:{{ page_obj.paginator.count }}</small></h2>
     {% for post in posts %}
         <article class="media content-section">
             <img class="rounded-circle article-img" src="{{ post.author.profile.profile_img.url }}">
@@ -13,6 +13,13 @@
                 </div>
                 <h2><a class="article-title" href="{% url 'blog-detail' post.id %}">{{ post.title }}</a></h2>
                 <p class="article-content">{{ post.content|truncatechars:100 }}</p>
+                <div class="article-metadata text-muted">
+                        {% if post.catagories %}
+                        {% for cat in post.catagories.all %}
+                            <span class="badge badge-pill badge-success">{{cat}}</span>
+                        {% endfor %}
+                        {% endif %}
+                    </div>
                 <a href="{% url 'blog-detail' post.id %}" class="btn btn-primary btn-sm">Read More &rarr;</a>
                 
             </div>

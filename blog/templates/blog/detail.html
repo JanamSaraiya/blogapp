@@ -20,8 +20,15 @@
 
         </div>
         <div class="card-body">
-
+                {% if post.catagories %}
+                {% for cat in post.catagories.all %}
+                    <span class="badge badge-pill badge-success">{{cat}}</span>
+                {% endfor %}
+                {% endif %}
             <h2 class="card-title">{{ post.title }}</h2>
+            {% if post.thumbnail %}
+                <img src="{{ post.thumbnail.url }}" class="img-fluid" alt="Responsive image">
+            {% endif %}
             <p class="card-text">{{ post.content|linebreaks }}</p>
         </div>
         <div class="card-footer text-muted">

@@ -13,9 +13,18 @@
                 </div>
                 <h2><a class="article-title" href="{% url 'blog-detail' post.id %}">{{ post.title }}</a></h2>
                 <p class="article-content">{{ post.content|truncatechars:100 }}</p>
+                <div class="article-metadata text-muted">
+                    {% if post.catagories %}
+                    {% for cat in post.catagories.all %}
+                        <span class="badge badge-pill badge-success">{{cat}}</span>
+                    {% endfor %}
+                    {% endif %}
+                </div>
                 <a href="{% url 'blog-detail' post.id %}" class="btn btn-primary btn-sm">Read More &rarr;</a>
                 <a href="{% url 'user-post' post.author.username %}" class="btn btn-primary btn-sm">My all post</a>
+                
             </div>
+            
         </article>
     {% endfor %}
 

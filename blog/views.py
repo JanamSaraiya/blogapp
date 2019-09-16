@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
     template_name = 'blog/create_post.html'
-    fields = ['title', 'content']
+    fields = ['title', 'content', 'thumbnail', 'catagories']
 
     def form_valid(self, form):
         form.instance.author = self.request.user
@@ -18,7 +18,7 @@ class PostCreateView(LoginRequiredMixin, CreateView):
 class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Post
     template_name = 'blog/update_post.html'
-    fields = ['title', 'content']
+    fields = ['title', 'content', 'thumbnail', 'catagories']
 
     def form_valid(self, form):
         form.instance.author = self.request.user
@@ -56,7 +56,7 @@ class PostListView(ListView):
 class UserPostListView(ListView):
     model = Post
     template_name = 'blog/user_post.html'
-
+    ordering = ['-id']
     context_object_name = 'posts'
     paginate_by = 5
 
