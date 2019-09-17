@@ -12,7 +12,7 @@
                     <small class="text-muted">Posted on {{ post.date_posted|date:'F d, Y , P' }}</small>
                 </div>
                 <h2><a class="article-title" href="{% url 'blog-detail' post.id %}">{{ post.title }}</a></h2>
-                <p class="article-content">{{ post.content|truncatechars:100 }}</p>
+                <p class="article-content">{{ post.overview|truncatechars:100 }}</p>
                 <div class="article-metadata text-muted">
                         {% if post.catagories %}
                         {% for cat in post.catagories.all %}

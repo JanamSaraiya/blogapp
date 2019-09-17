@@ -1,39 +1,48 @@
 {% extends 'blog/base.html' %}
 {% block content %}
-    <div class="card mb-4">
+<style>
+.post-body img{
+	width:100%;
+	height:auto ;
+}
+.post-body iframe{
+	width:100%;
+}
+</style>
+<div class="card mb-4">
 
-        <div class="card-header">
-            <img class="rounded-circle account-img img-thumbnail" src="{{ post.author.profile.profile_img.url }}">
-            <a class="mr-2" href="{% url 'user-post' post.author.username %}">
-                <span class="card-title">{{ post.author.first_name }} {{ post.author.last_name }}
-                </span></a>
-            <a href="{% url 'blog-home' %}" class="btn btn-outline-primary btn-sm">&larr; Go Back </a>
-            {% if post.author == user %}
-                <a href="{% url 'blog-update' post.id %}" class="btn btn-outline-secondary btn-sm mt-1 mb-1"> Update
-                    It </a>
-                <a href="{% url 'blog-delete' post.id %}" class="btn btn-outline-danger btn-sm mt-1 mb-1"> Delete
-                    It </a>
-            {% endif %}
-            <br/>
-            <a href="{% url 'profile' post.author.id %}" class="btn btn-outline-primary btn-sm">My Profile</a>
-            <a href="{% url 'user-post' post.author.username %}" class="btn btn-primary btn-sm">My all post</a>
+	<div class="card-header">
+		<img class="rounded-circle account-img img-thumbnail" src="{{ post.author.profile.profile_img.url }}">
+		<a class="mr-2" href="{% url 'user-post' post.author.username %}">
+			<span class="card-title">{{ post.author.first_name }} {{ post.author.last_name }}
+			</span></a>
+		<a href="{% url 'blog-home' %}" class="btn btn-outline-primary btn-sm">&larr; Go Back </a>
+		{% if post.author == user %}
+		<a href="{% url 'blog-update' post.id %}" class="btn btn-outline-secondary btn-sm mt-1 mb-1"> Update
+			It </a>
+		<a href="{% url 'blog-delete' post.id %}" class="btn btn-outline-danger btn-sm mt-1 mb-1"> Delete
+			It </a>
+		{% endif %}
+		<br />
+		<a href="{% url 'profile' post.author.id %}" class="btn btn-outline-primary btn-sm">My Profile</a>
+		<a href="{% url 'user-post' post.author.username %}" class="btn btn-primary btn-sm">My all post</a>
 
-        </div>
-        <div class="card-body">
-                {% if post.catagories %}
-                {% for cat in post.catagories.all %}
-                    <span class="badge badge-pill badge-success">{{cat}}</span>
-                {% endfor %}
-                {% endif %}
-            <h2 class="card-title">{{ post.title }}</h2>
-            {% if post.thumbnail %}
-                <img src="{{ post.thumbnail.url }}" class="img-fluid" alt="Responsive image">
-            {% endif %}
-            <p class="card-text">{{ post.content|linebreaks }}</p>
-        </div>
-        <div class="card-footer text-muted">
-            Posted on {{ post.date_posted|date:'F d, Y , P' }} by
-            <span class="text-info mr-2">{{ post.author }}</span>
-        </div>
-    </div>
+	</div>
+	<div class="card-body post-body">
+		{% if post.catagories %}
+		{% for cat in post.catagories.all %}
+		<span class="badge badge-pill badge-success">{{cat}}</span>
+		{% endfor %}
+		{% endif %}
+		<h2 class="card-title">{{ post.title }}</h2>
+		{% if post.thumbnail %}
+		<img src="{{ post.thumbnail.url }}" class="img-fluid" alt="Responsive image">
+		{% endif %}
+		<p class="card-text">{{ post.content| safe}}</p>
+	</div>
+	<div class="card-footer text-muted">
+		Posted on {{ post.date_posted|date:'F d, Y , P' }} by
+		<span class="text-info mr-2">{{ post.author }}</span>
+	</div>
+</div>
 {% endblock %}
