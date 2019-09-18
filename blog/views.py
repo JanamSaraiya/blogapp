@@ -1,3 +1,4 @@
+from django.db.models import Q
 from django.shortcuts import render, get_object_or_404
 from .models import Post, Catagory
 from django.views.generic import (
@@ -18,6 +19,27 @@ def cat_list_post(request,id):
         'cat': qs
     }
     return render(request, 'blog/cat_list_post.html', context)
+
+def search_post(request):
+    post_list = Post.objects.all()
+    query = request.GET.get('q')
+    if query != None and query != '':
+        post_list =post_list.filter(
+            Q(title__icontains = query) |
+            Q(overview__icontains = query) |
+            Q(content__icontains = query) |
+            Q(author__username__icontains= query) |
+            Q(author__first_name__icontains = query) |
+            Q(author__last_name__icontains = query) |
+            Q(catagories__title__icontains = query)
+        ).distinct()
+    else:
+        post_list = None
+    context ={
+        'post_list' : post_list,
+        'query':query
+    }
+    return render(request, 'blog/search_post.html', context)
 
 
 class PostListView(ListView):

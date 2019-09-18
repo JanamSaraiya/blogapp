@@ -1,0 +1,35 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+<h2 class="mb-3 text-center "><i class="far fa-list-alt"></i> Serch Word : {{query}} <small
+          class="d-inline p-1 bg-primary  text-white"> Total Posts:{{ post_list.count }}</small></h2>
+{% if post_list %}
+{% for post in post_list %}
+<article class="media content-section">
+     <img class="rounded-circle article-img" src="{{ post.author.profile.profile_img.url }}">
+     <div class="media-body">
+
+          <div class="article-metadata">
+
+               <a class="mr-2" href="{% url 'profile' post.author.id %}">{{ post.author.first_name }} {{ post.author.last_name }}</a>
+               <small class="text-muted">Posted on {{ post.date_posted|date:'F d, Y , P' }}</small>
+          </div>
+          <h2><a class="article-title" href="{% url 'blog-detail' post.id %}">{{ post.title }}</a></h2>
+          <p class="article-content">{{ post.overview|truncatechars:100 }}</p>
+          <div class="article-metadata text-muted">
+               {% if post.catagories %}
+               {% for cat in post.catagories.all %}
+               <span class="badge badge-pill badge-success">{{cat}}</span>
+               {% endfor %}
+               {% endif %}
+          </div>
+          <a href="{% url 'blog-detail' post.id %}" class="btn btn-primary btn-sm">Read More &rarr;</a>
+
+     </div>
+</article>
+{% endfor %}
+{% else %}
+<h2 class="mb-3 text-center "> There are no post for this search</h2>
+{% endif %}
+{% include 'blog/pagination.html' %}
+
+{% endblock %}
