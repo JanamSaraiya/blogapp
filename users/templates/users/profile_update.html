@@ -9,6 +9,7 @@
             <p class="text-body">Username: {{ user.username }}</p>
             <p class="text-secondary">Email Id: {{ user.email }}</p>
             <p class="text-secondary">Age: {{ user.profile.age }} Gender: {{ user.profile.gender }}</p>
+            <a href="{% url 'password_change' %}" class="btn btn-danger">Change Password</a>
 
 
         </div>

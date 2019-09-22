@@ -3,6 +3,7 @@ from .forms import RegistrationForm, UserUpdateForm, ProfileUpdateForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .models import Profile
+from django.contrib.auth.forms import PasswordChangeForm
 
 
 def register(request):
@@ -10,7 +11,7 @@ def register(request):
         form = RegistrationForm(request.POST)
         if form.is_valid():
             username = form.cleaned_data.get('username')
-            form.save() # when you save this post_save signal invoke and create instance of profile model as well
+            form.save()  # when you save this post_save signal invoke and create instance of profile model as well
             messages.success(
                 request, f'Hey, {username}, your account has been created.')
             messages.info(request, f'Now you can login.')
@@ -54,3 +55,20 @@ def profile_update(request):
         'p_form': p_form
     }
     return render(request, 'users/profile_update.html', context)
+
+
+# def change_password(request):
+#     if request.method == 'POST':
+
+#         form = PasswordChangeForm(data=request.POST, user=request.user)
+#         if form.is_valid():
+#             form.save()
+#             messages.success(
+#                 request, f'Hey, , your password has been updated.')
+#             return redirect('profile-update')
+#     else:
+#         form = PasswordChangeForm(user=request.user)
+#     context = {
+#         'form': form
+#     }
+#     return render(request, 'users/password_change.html', context)
